@@ -1,6 +1,10 @@
 import numpy as  np  
 
 def remove_nan(file_in,file_out):
+    """
+    Load a text file, replace all NaN values with 0,
+    and save the cleaned data to a new file.
+    """
     txt=np.loadtxt(file_in,dtype=np.float64)
     txt[np.isnan(txt)]=0
     np.savetxt(file_out,txt,fmt='%g',delimiter='\t')
