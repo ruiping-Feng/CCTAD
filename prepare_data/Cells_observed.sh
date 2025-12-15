@@ -1,15 +1,16 @@
 #!/bin/bash
-
+# Path to Juicer tools jar file
 juicer_tool="/home/houshiyuan/frp/CCTAD/prepare_data/juicer_tools.jar"
 chromList=($(seq 1 22))
 chromList[${#chromList[*]}]=X
 resolutions="25000 50000 100000"
-
+# Directory containing Hi-C data files
 DPATH="/mnt/sdi/frp/data/Rwa_Cell/"
 CELL="IMR90/GSE63525_IMR90_combined_30.hic K562/GSE63525_K562_combined_30.hic"
-
+# Output base directory
 outputDir="/home/houshiyuan/frp/CCTAD/prepare_data"
 
+# Loop over each cell type / Hi-C file
 for cell in $CELL; do
     cell_name=$(echo $cell | cut -d'/' -f1)
     echo $cell_name
