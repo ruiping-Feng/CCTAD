@@ -1,5 +1,5 @@
 #!/bin/bash
-
+# Check whether a directory exists; if not, create it
 checkMakeDirectory(){
         echo -e "checking directory: $1"
         if [ ! -e "$1" ]; then
@@ -7,13 +7,16 @@ checkMakeDirectory(){
                 mkdir -p "$1"
         fi
 }
-
+# Dump Hi-C contact matrices from .hic files
+# and convert them into text format
 dumpdata() {
-
+    # Generate dataset index list (from $1 to $2)
     list=($(seq $1 $2))
+    # Define chromosome list: chr1–chr22 and chrX
     chromList=($(seq 1 22))
     chromList[${#chromList[*]}]=X
 
+    # Loop over dataset indices
     for li in ${list[@]}; do
         j=$((1551550+li-1))
         previous_name="GSM"$j
@@ -22,7 +25,8 @@ dumpdata() {
         #echo $dataset
         resolution=(10000 25000 50000 100000)
         mkdir -p $latter_name
-
+        
+        # Loop over chromosomes and resolutions
         for chrom in ${chromList[@]}; do
             for reso in ${resolution[@]}; do
                 display_reso=$(reso / 1000)
@@ -32,7 +36,7 @@ dumpdata() {
         done
     done
 }
-dumpdata 2 2
-dumpdata  50 56
-dumpdata  69 74
+dumpdata 2 2    # Dump dataset HIC002
+dumpdata  50 56  # Dump datasets HIC050–HIC056
+dumpdata  69 74   # Dump datasets HIC069–HIC074
 
